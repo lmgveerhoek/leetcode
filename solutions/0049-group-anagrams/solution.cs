@@ -11,10 +11,10 @@ public class Solution {
             var sortedString = new string(sortedChars);
 
             // Add the words to the anagram group if it exists or create a new one
-            if (!anagramGroups.ContainsKey(sortedString)) {
+            if (!anagramGroups.TryGetValue(sortedString, out var group)) {
                 anagramGroups[sortedString] = new List<string> { str };
             } else { 
-                anagramGroups[sortedString].Add(str);
+                group.Add(str);
             }
         }
 
