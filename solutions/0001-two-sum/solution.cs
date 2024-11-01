@@ -1,26 +1,22 @@
 public class Solution {
     public int[] TwoSum(int[] nums, int target) {
-        // Create a dictionary for all the numbers to count their occurences
-        var numDictionary = new Dictionary<int, List<int>>(); 
+        // Create a dictionary to store the indices of each number
+        var numDictionary = new Dictionary<int, int>(); 
 
-        // For each number in the array, add the indices to a list
+        // For each number in the array, add the index to the dictionary
         for (int i = 0; i < nums.Length; i++) {
             if (!numDictionary.ContainsKey(nums[i]))
-                numDictionary[nums[i]] = new List<int>(); 
-
-            numDictionary[nums[i]].Add(i);
-        }
-
-        // Loop through all the numbers, find the remainder
-        // and see if it exists in the array without being the same index. 
-        for (int i = 0 ; i < nums.Length; i++) {
+                numDictionary[nums[i]] = i; 
+            
+            // Calculate the remainder and check if it is contained within the dictionary
             var remainder = target - nums[i]; 
-            if (numDictionary.ContainsKey(remainder))
-                foreach (var index in numDictionary[remainder])
-                    if (index != i)
-                        return [i, index];
+            if (numDictionary.ContainsKey(remainder)) {
+                var index = numDictionary[remainder];
+                // If the index is not the same, then it is a valid pair
+                if (i != index)
+                    return [i, index];
+            }
         }
-
         return [];
     }
 }
